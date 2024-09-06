@@ -1,10 +1,10 @@
 Trabalho realizado no 2º semestre do curso de Engenharia de Computação. Visa a implementação de busca em largura e busca em profundidade em um mapa de caracteres
 
 Significado de cada caractere: 
-"." -> Água 
-"#" -> Terra 
-"L" -> Sua localização 
-"X" -> Localização do tesouro
+"." -> Água |
+"#" -> Terra |
+"L" -> Sua localização |
+"X" -> Localização do tesouro |
 
 Para utilizar corretamente o algoritmo tem-se que colocar o tamanho do mapa e em seguida o mapa. 
 Exemplo:
