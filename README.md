@@ -38,8 +38,8 @@ To compile and run this project:
 
 1.  **Clone the repository (or download the files):**
     ```bash
-    git clone <repository_url>
-    cd <repository_name>
+    git clone <https://github.com/Brun0r0/Using_BFS_DFS_to_plot_route>
+    cd <Using_BFS_DFS_to_plot_route>
     ```
 
 2.  **Compile the C code:**
@@ -70,7 +70,7 @@ Followed by `N * M` characters representing the map, where:
 
 **Example Input:**
 
-´´´
+```
 10 40
 
 .....##.................................
@@ -83,7 +83,7 @@ Followed by `N * M` characters representing the map, where:
 .###..................###########.......
 .######..................#####..........
 .....##..................######.........
-´´´
+```
 
 ### Output:
 
