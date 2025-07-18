@@ -1,47 +1,72 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "grafo.h"
 
-nodo* criaLista(){
-    return NULL;
+Grafo* criarGrafo(int vertices){
+    Grafo* grafo = malloc(sizeof(Grafo));
+    grafo->numVertices = vertices;
+
+    grafo->listaAdj = malloc(vertices * sizeof(nodo*));
+    for(int i = 0; i < vertices; i++){
+        grafo->listaAdj[i] = NULL;
+    }
+
+    return grafo;
 }
 
-nodo* adicionaLista(nodo* lista, int L){
-    nodo* novo = (nodo*) malloc(sizeof(nodo));
-    novo->localizacao = L;
-    novo->prox = lista;
-    return novo;
+void adicionarAresta(Grafo* grafo, int origem, int destino){
+    // Verificar se a aresta já existe para evitar duplicatas
+    if(verificarAresta(grafo, origem, destino)){
+        return;
+    }
+
+    // Adiciona o destino na lista de origem
+    nodo* novoNodo1 = (nodo*) malloc(sizeof(nodo));
+    novoNodo1->destino = destino;
+    novoNodo1->prox = grafo->listaAdj[origem];
+    grafo->listaAdj[origem] = novoNodo1;
+
+    // Adiciona origem na lista de destino (grafo não direcionado)
+    nodo* novoNodo2 = malloc(sizeof(nodo));
+    novoNodo2->destino = origem;
+    novoNodo2->prox = grafo->listaAdj[destino];
+    grafo->listaAdj[destino] = novoNodo2;
 }
 
-void liberaLista(nodo* lista){
-    if (lista == NULL) return;
-    liberaLista(lista->prox);
-    free(lista);
-}
-
-void zerarVisitados(int visitados[], int tam){
-    for(int i = 0; tam > i; i++)
-        visitados[i] = 0;
-}
-
-int retornaVizinho(nodo *lista, int visitados[]){
-    if(lista == NULL) return -1;
-
-    int aux = lista->localizacao;
-
-    if(visitados[aux] == 0)
-        return aux;
-
-    retornaVizinho(lista->prox, visitados);
-}
-
-int quantidadeVizinhos(nodo *lista, int visitados[]){     /*Função para verificar a quantidade de vizinhos não visitados*/
-    if(lista == NULL)
+int verificarAresta(Grafo* grafo, int origem, int destino){
+    if(grafo == NULL || origem < 0 || origem >= grafo->numVertices){
         return 0;
+    }
+    
+    nodo* atual = grafo->listaAdj[origem];
+    while(atual != NULL){
+        if(atual->destino == destino){
+            return 1;
+        }
+        atual = atual->prox;
+    }
+    return 0;
+}
 
-    int v = lista->localizacao;
+nodo* obterVizinhos(Grafo* grafo, int vertice){
+    if(grafo == NULL || vertice < 0 || vertice >= grafo->numVertices){
+        return NULL;
+    }
+    return grafo->listaAdj[vertice];
+}
 
-    if(visitados[v] == 1)
-        return quantidadeVizinhos(lista->prox, visitados);
+void liberarGrafo(Grafo* grafo){
+    if(grafo == NULL) return;
+    
+    for(int i = 0; i < grafo->numVertices; i++){
+        nodo* atual = grafo->listaAdj[i];
+        while(atual != NULL){
+            nodo* temp = atual;
+            atual = atual->prox;
+            free(temp);
+        }
+    }
 
-    return 1 + quantidadeVizinhos(lista->prox, visitados);
+    free(grafo->listaAdj);
+    free(grafo);
 }

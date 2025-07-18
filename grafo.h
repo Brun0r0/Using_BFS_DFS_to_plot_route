@@ -2,15 +2,19 @@
 #define GRAFO_H
 
 typedef struct Nodo{
-    int localizacao;
+    int destino;
     struct Nodo *prox;    
 } nodo;
 
-nodo* criaLista();
-nodo* adicionaLista(nodo* lista, int L);
-void liberaLista(nodo* lista);
-void zerarVisitados(int visitados[], int tam);
-int retornaVizinho(nodo* lista, int visitados[]);
-int quantidadeVizinhos(nodo* lista, int visitados[]);
+typedef struct {
+    int numVertices;
+    nodo** listaAdj;
+} Grafo;
+
+Grafo* criarGrafo(int vertices);
+void adicionarAresta(Grafo* grafo, int origem, int destino);
+int verificarAresta(Grafo* grafo, int origem, int destino);
+void liberarGrafo(Grafo* grafo);
+nodo* obterVizinhos(Grafo* grafo, int vertice);
 
 #endif

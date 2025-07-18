@@ -7,12 +7,9 @@ int v[999];
 int topo;
 } Pilha;
 
-Pilha *cria_pilha();
-int vazia_pilha(Pilha *p);
-void push_pilha(Pilha *p, int x);
-int pop_pilha(Pilha *p);
-int cheia_pilha(Pilha *p);
-void imprime_pilha(Pilha *p);
-void limpa_pilha(Pilha *p);
+Pilha *criarPilha();
+void pushPilha(Pilha *p, int x);
+int popPilha(Pilha *p);
+int pilhaVazia(Pilha *p);
 
 #endif

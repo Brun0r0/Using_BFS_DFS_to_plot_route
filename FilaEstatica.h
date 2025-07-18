@@ -9,9 +9,8 @@ typedef struct{
 }Fila;
 
 Fila *criaFila();
-int vazia_fila(Fila *f);
-void push_fila(Fila *f, int v);
-int pop_fila(Fila *f);
-void limpa_fila(Fila *f);
-void clear(Fila *f);
+void pushFila(Fila *f, int v);
+int popFila(Fila *f);
+int filaVazia(Fila *f);
+
 #endif // FILA_ESTATICA_H_INCLUDED
