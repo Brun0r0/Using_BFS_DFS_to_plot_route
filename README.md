@@ -1,111 +1,205 @@
-# 🗺️ Treasure Hunt: A Pathfinding Adventure (C Language) 🚀
+# 🏴‍☠️ Treasure Hunt - Graph Search Algorithms
 
-Welcome to the **Treasure Hunt** project! This C-language application is designed to explore graph traversal algorithms (Depth-First Search - DFS and Breadth-First Search - BFS) to navigate a 2D map, discover islands, and find hidden treasure! 🏝️💰
+## 📋 About the Project
 
-## ✨ Idea Behind the Project
+This project implements a treasure hunting system on two-dimensional maps using **Depth-First Search (DFS)** and **Breadth-First Search (BFS)** algorithms. The program analyzes maps composed of islands and oceans, identifies all existing islands, and finds the best path between an initial location and a hidden treasure.
 
-Imagine you're an adventurer on a mysterious map, trying to find a hidden treasure ('X') starting from your current location ('L'). But there's a twist! Some parts of the map are water ('.') and can't be crossed. The rest are land, forming various islands.
+### 🎯 Project Objectives
 
-This project aims to:
+- **Implement data structures**: Graphs using adjacency lists
+- **Apply search algorithms**: DFS and BFS for graph exploration
+- **Connected components analysis**: Island identification and measurement
+- **Path reconstruction**: Visualization of the found route
+- **Memory management**: Proper allocation and deallocation of resources
 
-1.  **Map the World**: Represent our adventurer's world as a graph, where each land cell is a node and adjacent land cells are connected. 🌐
-2.  **Island Discovery**: Identify and quantify the number of distinct islands, and determine the largest and smallest islands on the map. 🕵️‍♀️
-3.  **Treasure Quest!**: Find the shortest and any valid path from your starting point to the treasure using two classic graph search algorithms:
-    * **Depth-First Search (DFS)**: Think of it as exploring one path as far as possible before backtracking. Like a determined explorer! 🏞️
-    * **Breadth-First Search (BFS)**: This method explores all immediate neighbors before moving to the next level of neighbors. Like a systematic search party! 🔍
+## 🗺️ How It Works
 
-## ⚙️ How It Works (Under the Hood)
+The program represents the map as an undirected graph where:
 
-This project leverages fundamental data structures and algorithms:
+- **Vertices**: Each map cell (except water)
+- **Edges**: Connections between adjacent cells (horizontal and vertical)
+- **Connected components**: Represent separate islands
 
-### Data Structures:
+### Map Symbols
 
-* **Adjacency List (Graph Representation)**: The map is represented as an array of linked lists (`nodo** lista`), where each index corresponds to a cell on the map, and its linked list contains its traversable neighbors. This is a highly efficient way to store sparse graphs (graphs with relatively few connections). 🔗
-* **Static Stack (`PilhaEstatica.h`/`.c`)**: Used for the Depth-First Search (DFS) algorithm. It allows us to keep track of the path we're currently exploring. Think of it as a pile of plates – you always take the last one you put on! 🍽️
-* **Static Queue (`FilaEstatica.h`/`.c`)**: Used for the Breadth-First Search (BFS) algorithm. It helps us explore the graph level by level, ensuring we find the shortest path. Imagine a line at the bank – first in, first out! 🚶‍♀️🚶‍♂️
+| Symbol | Meaning |
+|---------|-------------|
+| `#` | Land (part of an island) |
+| `.` | Water (ocean) |
+| `L` | Initial location (starting point) |
+| `X` | Treasure (destination) |
+| `>` `<` `^` `v` | Path directions found |
 
-### Algorithms:
+## 🚀 How to Use
 
-* **Depth-First Search (DFS) (`buscaProfunda` and `tesouroProfundidade` in `busca.c`)**:
-    * `buscaProfunda`: Explores an island completely to determine its size. It's crucial for identifying the "islands" on our map and their respective sizes. 🏝️📏
-    * `tesouroProfundidade`: Determines if there's a path from the starting point to the treasure using DFS and reconstructs one such path. 🧭
-* **Breadth-First Search (BFS) (`tesouroLargura` in `busca.c`)**:
-    * `tesouroLargura`: Finds a path from the starting point to the treasure using BFS. Because BFS explores layer by layer, it inherently finds the *shortest* path in an unweighted graph!  shortest path. 🏁
+### Compilation
 
-## 🚀 Getting Started
-
-To compile and run this project:
-
-1.  **Clone the repository (or download the files):**
-    ```bash
-    git clone <https://github.com/Brun0r0/Using_BFS_DFS_to_plot_route>
-    cd <Using_BFS_DFS_to_plot_route>
-    ```
-
-2.  **Compile the C code:**
-    You'll need a C compiler (like GCC). Navigate to the project directory in your terminal and run:
-    ```bash
-    gcc main.c FilaEstatica.c PilhaEstatica.c grafo.c busca.c -o treasure_hunt
-    ```
-    This command compiles all the `.c` files and links them, creating an executable named `treasure_hunt`.
-
-3.  **Run the executable:**
-    ```bash
-    ./treasure_hunt
-    ```
-
-### Input Format:
-
-The program expects input from `stdin`. The first two lines should be:
-
-* `N`: The number of rows in the map.
-* `M`: The number of columns in the map.
-
-Followed by `N * M` characters representing the map, where:
-
-* `'L'`: Your starting location.
-* `'X'`: The treasure's location.
-* `'#'`: Land (traversable).
-* `'.'`: Water (non-traversable).
-
-**Example Input:**
-
-```
-10 40
-
-.....##.................................
-.....##L############################....
-.################################.......
-.###########################............
-.####X#########.........................
-.#########...............########.......
-.######...............############......
-.###..................###########.......
-.######..................#####..........
-.....##..................######.........
+```bash
+gcc -o treasure main.c grafo.c busca.c mapa.c PilhaEstatica.c FilaEstatica.c
 ```
 
-### Output:
+### Execution
 
-The program will output:
+```bash
+./treasure
+```
 
-* The number of islands found.
-* The size of the largest and smallest islands.
-* If a path to the treasure exists:
-    * The path found by Depth-First Search, marked with arrows (`<`, `>`, `^`, `v`).
-    * The number of steps taken by DFS.
-    * The path found by Breadth-First Search, also marked with arrows.
-    * The number of steps taken by BFS.
-* If no path to the treasure exists, a "Nao ha caminho para o tesouro" message.
+### Input Format
 
-## 🤝 Contributing
+1. **First line**: `N M` (map dimensions - rows and columns)
+2. **Next N lines**: Map characters (one per cell)
 
-Feel free to fork this project, open issues, or submit pull requests! Any contributions to improve the code, add features, or enhance documentation are highly welcome. Let's make this treasure hunt even better! 🌟
+### Output Format
 
-## 📄 License
+1. Information about the islands found
+2. Path using depth-first search (if exists)
+3. Path using breadth-first search (if exists)
+4. Number of steps for each algorithm
 
-This project is open-source and available under the [MIT License](LICENSE).
+## 📁 Project Structure
+
+```
+📦 treasure-hunt/
+├── 📄 main.c              # Main program
+├── 📄 grafo.c/.h          # Graph implementation
+├── 📄 busca.c/.h          # Search algorithms (DFS/BFS)
+├── 📄 mapa.c/.h           # Map manipulation
+├── 📄 PilhaEstatica.c/.h  # Stack structure for DFS
+├── 📄 FilaEstatica.c/.h   # Queue structure for BFS
+└── 📄 README.md           # This file
+```
+
+## 📊 Usage Examples
+
+### 🏖️ Example 1: Simple Island
+```
+Input:
+4 5
+#####
+#L..#
+#.X.#
+#####
+
+Output:
+Ha 1 ilhas(s)
+A maior tem tamanho 12
+A menor tem tamanho 12
+
+Busca em profundidade:
+#####
+#L>.#
+#.X.#
+#####
+2 passo(s)
+
+Busca em largura:
+#####
+#L>.#
+#.X.#
+#####
+2 passo(s)
+```
+
+### 🏝️ Example 2: Multiple Islands
+```
+Input:
+5 6
+##....
+#L....
+......
+....##
+....#X
+
+Output:
+Ha 2 ilhas(s)
+A maior tem tamanho 3
+A menor tem tamanho 3
+
+Nao ha caminho para o tesouro
+```
+
+### 🌊 Example 3: Complex Maze
+```
+Input:
+6 8
+########
+#L.....#
+#.####.#
+#....#.#
+#.##.#X#
+########
+
+Output:
+Ha 1 ilhas(s)
+A maior tem tamanho 28
+A menor tem tamanho 28
+
+Busca em profundidade:
+########
+#L>>>>>v
+#^####v#
+#^...#v#
+#^##.#X#
+########
+12 passo(s)
+
+Busca em largura:
+########
+#L>>>>>v
+#^####v#
+#^...#v#
+#^##.#X#
+########
+12 passo(s)
+```
+
+## ⚙️ Implemented Algorithms
+
+### 🔍 Depth-First Search (DFS)
+- **Structure**: Stack (LIFO)
+- **Strategy**: Explores as far as possible before backtracking
+- **Advantage**: Uses less memory
+- **Application**: Island counting and path finding
+
+### 🌐 Breadth-First Search (BFS)
+- **Structure**: Queue (FIFO)
+- **Strategy**: Explores all neighbors before moving to the next level
+- **Advantage**: Finds the shortest path
+- **Application**: Optimal path to treasure
+
+## 🧩 Key Features
+
+- ✅ **Island Analysis**: Identifies and measures all map islands
+- ✅ **Path Finding**: Implements DFS and BFS to find routes
+- ✅ **Visualization**: Shows the found path with directional arrows
+- ✅ **Comparison**: Presents results from both algorithms
+- ✅ **Validation**: Reports when no path is possible
+
+## 💡 Covered Concepts
+
+- **Undirected graphs** and adjacency lists
+- **Connected components** and connectivity analysis
+- **Search algorithms** and their practical differences
+- **Path reconstruction** using predecessor arrays
+- **Memory management** in C
+- **Modularization** and separation of concerns
+
+## 🔧 Possible Improvements
+
+- [ ] Implement A* algorithm for heuristic search
+- [ ] Add support for diagonal movements
+- [ ] Create graphical interface for visualization
+- [ ] Implement different terrain types with costs
+- [ ] Add interactive map creation mode
+
+## 👨‍💻 Developed by
+
+This project was developed as an academic assignment to study:
+- Data Structures
+- Search Algorithms
+- C Programming
+- Graph Analysis
 
 ---
 
-Happy Adventuring! 🚀
+⭐ **Tip**: Try creating your own maps and observe the differences between DFS and BFS algorithms!
